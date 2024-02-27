@@ -4,10 +4,13 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity('email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -16,6 +19,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+
+//Les deux propriétés suivantes permettent d'empêcher le champs d'être validé vide ou avec moins de 4 ou plus de 180 caractères. Il est important de mettre les deux.
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        min: 4,
+        max: 180,
+        minMessage: "L'email ne peux pas faire moins de {{ limit }} caractères.",
+        maxMessage: "L'email ne peux pas faire plus de {{ limit }} caractères.",
+    )]
+
+    //
+    #[Assert\Email()]
+        
     private ?string $email = null;
 
     /**
