@@ -10,7 +10,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity('email')]
+//Contrainte d'unicité pour l'email côté Symfony
+#[UniqueEntity(fields: ['email'], message: "L'email est déjà utilisé par un autre compte")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -47,9 +48,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        max: 255,
+    )]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        max: 255,
+    )]
     private ?string $lastname = null;
 
     public function getId(): ?int

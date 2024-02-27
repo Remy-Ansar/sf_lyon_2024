@@ -19,8 +19,12 @@
                     <a href="/logout" class="btn btn-danger">Déconnexion</a>
                     </li>
                     {% else %}
+                         <li class="navbar-item me-2">
+                    <a href="{{ path('app.register') }}" class="btn btn-secondary">Inscription</a>
+                    </li>
                         <li class="navbar-item">
                     <a href="{{ path('app.login') }}" class="btn btn-outline-light">Connexion</a>
+                    </li>
                 {% endif %}
                 
                 </ul>
