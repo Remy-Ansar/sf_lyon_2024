@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
@@ -64,13 +65,26 @@ class UserType extends AbstractType
                     'label' => "Confirmation de mot passe:"
                 ]
             ]);
+
+        if ($options['isAdmin']) {
+            $builder->remove('password')
+                ->add('roles', ChoiceType::class, [
+                    'label' => 'Roles:',
+                    'placeholder' => 'Sélectionner un rôle',
+                    'choices' => [
+                        'Administrateur' => 'ROLE_ADMIN',
+                    ],
+                    'expanded' => true,
+                    'multiple' => true,
+                ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-
+            'isAdmin' => false,
         ]);
     }
 }

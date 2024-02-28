@@ -2,4 +2,8 @@
 
 @import "~bootstrap/scss/bootstrap";
 
-@import "~boostrap-icons/font/bootstrap-icons.scss"
+@import "~bootstrap-icons/font/bootstrap-icons.scss";
+
+@import "./_mixins.scss";
+@import "./_structure.scss/";
+@import "./Components/_card.scss";
