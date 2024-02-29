@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ArticleType extends AbstractType
 {
@@ -24,6 +25,16 @@ class ArticleType extends AbstractType
                     'placeholder' => 'Mon titre',
                 ]
             ])
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image:',
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'Supprimer l\'image',
+                'image_uri' => true,
+                'download_uri' => false,
+            ])
+
+
             ->add('description', TextareaType::class, [
                 'label' => 'Description:',
                 'required' => true,
