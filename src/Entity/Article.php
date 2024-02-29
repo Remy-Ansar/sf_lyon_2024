@@ -14,6 +14,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[UniqueEntity(fields: ['titre'], message: "Ce titre est déjà utilisé par un autre article")]
+#[ORM\HasLifecycleCallbacks]
+
 class Article
 {
     use DateTimeTrait,
@@ -39,10 +41,6 @@ class Article
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank()]
     private ?string $description = null;
-
-
-    #[ORM\Column]
-    private ?bool $actif = null;
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
@@ -86,18 +84,6 @@ class Article
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function isActif(): ?bool
-    {
-        return $this->actif;
-    }
-
-    public function setActif(bool $actif): static
-    {
-        $this->actif = $actif;
 
         return $this;
     }

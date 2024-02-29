@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Administration des articles
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-2">
+		<h1 class="text-center">Administration des articles</h1>
+		<div class="card-list mt-4">
+			{% for article in articles %}
+				<div class="blog-card">
+					<div class="blog-card-content">
+						<h2 class="blog-card-header">{{ article.titre}}</h2>
+						<p>
+							<strong>Description:</strong>
+							{{ article.description }}</p>
+						<p></p>
+						<div class="blog-card-btn">
+							<a href="{{ path('admin.articles.edit', {id: article.id}) }}" class="btn btn-warning">
+								<i class="bi bi-pencil-square"></i>Modifier</a>
+							{% include "Backend/Articles/_deleteForm.html.twig" %}
+						</div>
+
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}

@@ -50,7 +50,7 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'User modifié avec succès');
 
-            return $this->redirectToRoute('Backend/Users/edit.html.twig');
+            return $this->redirectToRoute('admin.users.index');
         }
 
         return $this->render('Backend/Users/edit.html.twig', [
