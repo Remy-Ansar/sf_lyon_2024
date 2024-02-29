@@ -26,7 +26,7 @@ class Article
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotBlank()]
-    #[Assert\length(
+    #[Assert\Length(
         min: 3,
         max: 255,
     )]
