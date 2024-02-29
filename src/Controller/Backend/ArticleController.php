@@ -58,14 +58,52 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', '.edit', methods: ['GET', 'POST'])]
-    public function edit(?User $user, Request $request): Response|RedirectResponse
+    #[Route('/{slug}/edit', '.edit', methods: ['GET', 'POST'])]
+    public function edit(?User $user, ?Article $article, Request $request): Response|RedirectResponse
     {
+        if (!$article) {
+            $this->addFlash('error', 'Article non trouvé');
 
-        if (!$user) {
-            $this->addFlash('error', 'Utilisateur non trouvé');
-
-            return $this->redirectToRoute('.admin.articles.index');
+            return $this->redirectToRoute('admin.articles.index');
         }
+
+        $form = $this->createForm(ArticleType::class, $article);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->em->persist($article);
+            $this->em->flush();
+
+            $this->addFlash('success', 'Article modifié avec succès');
+
+            return $this->redirectToRoute('admin.articles.index');
+        }
+
+        return $this->render('Backend/Articles/edit.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/delete', '.delete', methods: ['POST'])]
+    public function delete(Request $request, ?Article $article): Response | RedirectResponse
+    {
+        if (!$article) {
+            $this->addFlash('error', 'Article non trouvé');
+
+            return $this->redirectToRoute('admin.articles.index');
+        }
+
+        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('token'))) {
+            $this->em->remove($article);
+            $this->em->flush();
+
+            $this->addFlash('success', 'Article supprimé avec succès');
+        } else {
+            $this->addFlash('error', ' Token CSRF invalide');
+        }
+
+        return  $this->redirectToRoute('admin.articles.index');
     }
 }
