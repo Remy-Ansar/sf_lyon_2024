@@ -24,7 +24,7 @@ class ArticleController extends AbstractController
     ) {
     }
 
-    #[Route('', '.index', methods: ['GET'])]
+    #[Route('', name: '.index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render('Backend/Articles/index.html.twig', [

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\EnableTrait;
@@ -67,6 +69,14 @@ class Article
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'articles')]
+    private Collection $article;
+
+    public function __construct()
+    {
+        $this->article = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -164,5 +174,32 @@ class Article
     public function getImageSize(): ?int
     {
         return $this->imageSize;
+    }
+
+    /**
+     * @return Collection<int, Categorie>
+     */
+    public function getArticle(): Collection
+    {
+        return $this->article;
+    }
+
+    public function addArticle(Categorie $article): static
+    {
+        if (!$this->article->contains($article)) {
+            $this->article->add($article);
+            $article->addArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Categorie $article): static
+    {
+        if ($this->article->removeElement($article)) {
+            $article->removeArticle($this);
+        }
+
+        return $this;
     }
 }

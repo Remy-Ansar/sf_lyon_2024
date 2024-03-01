@@ -1,10 +1,9 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-	Administration des articles
+	Modification d'une catégorie
 	{{ parent() }}
 {% endblock %}
-
 {% block stylesheets %}
 	{{ parent() }}
 	{{ encore_entry_link_tags('admin') }}
@@ -16,16 +15,9 @@
 {% endblock %}
 
 {% block body %}
-
-
 	<section class="container mt-2">
-		<h1 class="text-center">Administration des articles</h1>
-		<a href=" {{ path('admin.articles.create') }}" class="btn btn-primary">Création d'un utilisateur</a>
-		<div class="card-list mt-4">
-			{% for article in articles %}
-				{% include 'Components/_articleCard.html.twig' %}
-
-			{% endfor %}
-		</div>
+		<h1 class="text-center">Modification d'une catégorie</h1>
+		{% include 'Backend/Articles/_form.html.twig' %}
+		<a href="{{ path('admin.categories.index') }}" class="btn btn-secondary">Retour à la liste</a>
 	</section>
 {% endblock %}

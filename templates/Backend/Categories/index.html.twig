@@ -1,7 +1,7 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
 {% block title %}
-	Administration des articles
+	Administration des catégories
 	{{ parent() }}
 {% endblock %}
 
@@ -19,11 +19,11 @@
 
 
 	<section class="container mt-2">
-		<h1 class="text-center">Administration des articles</h1>
-		<a href=" {{ path('admin.articles.create') }}" class="btn btn-primary">Création d'un utilisateur</a>
+		<h1 class="text-center">Administration des catégories</h1>
+		<a href="{{ path('admin.categories.create') }}" class="btn btn-primary">Création d'une catégorie</a>
 		<div class="card-list mt-4">
-			{% for article in articles %}
-				{% include 'Components/_articleCard.html.twig' %}
+			{% for categorie in categories %}
+				{% include 'Components/_categorieCard.html.twig' %}
 
 			{% endfor %}
 		</div>

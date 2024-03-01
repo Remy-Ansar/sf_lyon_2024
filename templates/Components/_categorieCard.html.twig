@@ -1,0 +1,23 @@
+<div class="blog-card">
+
+	<div class="blog-card-content">
+		<p>
+			<i class="bi bi-calendar2-week-fill"></i>
+			{{ categorie.createdAt|format_datetime('full', 'none') }}
+		</p>
+		<h2 class="blog-card-header">{{ categorie.titre }}</h2>
+
+		<div class="form-check form-switch">
+			<input class="form-check-input" type="checkbox" id="switch-visibility-categorie-{{ categorie.id }}" {{ categorie.enable ? 'checked'}} data-switch-categorie="{{ categorie.id }}"/>
+			<label class="form-check-label" for="switch-visibility-categorie-{{ categorie.id }}">{{ categorie.enable ? 'Actif' : 'Non actif' }}</label>
+		</div>
+
+		<div class="blog-card-btn">
+			<a href="{{ path('admin.categories.edit', {id: categorie.id}) }}" class="btn btn-warning">
+				<i class="bi bi-pencil-square"></i>
+				Modifier
+			</a>
+			{% include 'Backend/Categories/_deleteForm.html.twig' %}
+		</div>
+	</div>
+</div>

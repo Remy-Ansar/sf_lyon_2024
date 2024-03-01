@@ -4,14 +4,18 @@ namespace App\Form;
 
 use App\Entity\User;
 use App\Entity\Article;
+use App\Entity\Categorie;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ArticleType extends AbstractType
 {
@@ -43,6 +47,18 @@ class ArticleType extends AbstractType
                     'rows' => '10'
                 ]
             ])
+
+            ->add('categories', EntityType::class, [
+                'class' => EntityType::class,
+                'label' => 'Catégorie:',
+                'query_builder' => function (EntityRepository $er): QueryBuilder {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.titre', 'ASC');
+                },
+                'choice_label' => 'categories',
+
+            ])
+
             ->add('enable', CheckboxType::class, [
                 'label' => 'Actif',
                 'required' => false,
@@ -53,6 +69,7 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
+            'data_class' => Categorie::class,
         ]);
     }
 }
