@@ -1,0 +1,24 @@
+.card-list {
+   @include flexbox(space-between, flex-start, 2em 0);
+}
+
+.blog-card {
+    width: 30%;
+    border-radius: $border-radius;
+    background: $white;
+    box-shadow: $box-shadow-card;
+
+    @media screen and (max-width: 768px) {
+        width: 90%;
+    }
+
+    &-content {
+        padding: 1em 2em;
+        word-break: break-word;
+
+    }
+    &-btn {
+        @include flexbox(space-between, center, 1em);
+    }
+
+}
