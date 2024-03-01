@@ -71,6 +71,12 @@
     margin-bottom: 1em;
   }
 
+
+  img {
+    max-width: 100%;
+    object-fit: cover;
+  }
+  
   .btn-primary {
     color: $white !important;
     background-color: $secondary;
