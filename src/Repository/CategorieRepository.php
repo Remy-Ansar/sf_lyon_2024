@@ -21,6 +21,16 @@ class CategorieRepository extends ServiceEntityRepository
         parent::__construct($registry, Categorie::class);
     }
 
+
+    public function findAllOrderByTitre(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.titre', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
     //    /**
     //     * @return Categorie[] Returns an array of Categorie objects
     //     */

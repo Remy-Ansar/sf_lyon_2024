@@ -1,0 +1,29 @@
+<aside class="col-md-3 article-sidebar">
+	<h2 class="article-sidebar-title">Informations:</h2>
+
+	<p class="article-sidebar-info">
+		<strong>
+			<i class="bi bi-calendar2-week-fill"></i>
+			Date de création:</strong>
+		{{ article.createdAt|format_datetime('full', 'none') }}
+	</p>
+	<p>
+		<strong>
+			<i class="bi bi-person-badge-fill"></i>
+			Auteur:
+		</strong>
+		{{ article.user.fullName}}
+	</p>
+
+	{% if article.categories|length > 0 %}
+		<h2 class="article-sidebar-title">Catégories:</h2>
+		<div class="article-sidebar-tags">
+			{% for categorie in article.categories %}
+				<i class="bi bi-tags-fill"></i>
+				<span class="badge bg-secondary">{{ categorie.titre }}</span>
+
+			{% endfor %}
+		</div>
+	{% endif %}
+
+</aside>

@@ -11,6 +11,10 @@
 			<input class="form-check-input" type="checkbox" id="switch-visibility-categorie-{{ categorie.id }}" {{ categorie.enable ? 'checked'}} data-switch-categorie="{{ categorie.id }}"/>
 			<label class="form-check-label" for="switch-visibility-categorie-{{ categorie.id }}">{{ categorie.enable ? 'Actif' : 'Non actif' }}</label>
 		</div>
+		{# <p>
+					<strong>categories:</strong>
+					{{ article.categorie.titre }}
+				</p> #}
 
 		<div class="blog-card-btn">
 			<a href="{{ path('admin.categories.edit', {id: categorie.id}) }}" class="btn btn-warning">

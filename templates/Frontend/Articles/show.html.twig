@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	{{ article.titre }}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	{% include "Frontend/Articles/_banner.html.twig" %}
+	<section class="container mt-4">
+		<div class="row">
+			{% include "Frontend/Articles/_sidebar.html.twig" %}
+			{% include "Frontend/Articles/_content.html.twig" %}
+		</div>
+	</section>
+{% endblock %}

@@ -8,6 +8,8 @@ use App\Entity\Categorie;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\EntityRepository;
+use App\Repository\CategorieRepository;
+use Doctrine\DBAL\Query\QueryBuilder as QueryQueryBuilder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -49,15 +51,25 @@ class ArticleType extends AbstractType
             ])
 
             ->add('categories', EntityType::class, [
-                'class' => EntityType::class,
+                'class' => Categorie::class,
                 'label' => 'Catégorie:',
+                'placeholder' => 'Catégorie',
+                'choice_label' => 'titre',
+                'required' => false,
                 'query_builder' => function (EntityRepository $er): QueryBuilder {
                     return $er->createQueryBuilder('c')
+                        ->andWhere('c.enable = :enable')
+                        ->setParameter('enable', true)
                         ->orderBy('c.titre', 'ASC');
                 },
-                'choice_label' => 'categories',
+                'expanded' => false,
+                'multiple' => true,
+                // Relation ManyToMany donc by reference false pour persister en BDD
+                'by_reference' => false,
+                'autocomplete' => true,
 
             ])
+
 
             ->add('enable', CheckboxType::class, [
                 'label' => 'Actif',
@@ -69,7 +81,6 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
-            'data_class' => Categorie::class,
         ]);
     }
 }

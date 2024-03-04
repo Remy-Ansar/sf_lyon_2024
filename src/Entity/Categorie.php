@@ -34,7 +34,7 @@ class Categorie
     )]
     private ?string $titre = null;
 
-    #[ORM\ManyToMany(targetEntity: article::class, inversedBy: 'article')]
+    #[ORM\ManyToMany(targetEntity: article::class, inversedBy: 'categories')]
     private Collection $articles;
 
     public function __construct()

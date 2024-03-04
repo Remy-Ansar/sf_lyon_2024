@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use App\Entity\Repository\CategorieRepository;
 
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
@@ -71,11 +72,11 @@ class Article
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'articles')]
-    private Collection $article;
+    private Collection $categories;
 
     public function __construct()
     {
-        $this->article = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,25 +180,25 @@ class Article
     /**
      * @return Collection<int, Categorie>
      */
-    public function getArticle(): Collection
+    public function getCategories(): Collection
     {
-        return $this->article;
+        return $this->categories;
     }
 
-    public function addArticle(Categorie $article): static
+    public function addCategory(Categorie $categorie): static
     {
-        if (!$this->article->contains($article)) {
-            $this->article->add($article);
-            $article->addArticle($this);
+        if (!$this->categories->contains($categorie)) {
+            $this->categories->add($categorie);
+            $categorie->addArticle($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(Categorie $article): static
+    public function removeCategory(Categorie $categorie): static
     {
-        if ($this->article->removeElement($article)) {
-            $article->removeArticle($this);
+        if ($this->categories->removeElement($categorie)) {
+            $categorie->removeArticle($this);
         }
 
         return $this;

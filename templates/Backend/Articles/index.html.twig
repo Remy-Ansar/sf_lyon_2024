@@ -20,12 +20,15 @@
 
 	<section class="container mt-2">
 		<h1 class="text-center">Administration des articles</h1>
-		<a href=" {{ path('admin.articles.create') }}" class="btn btn-primary">Création d'un utilisateur</a>
+		<a href=" {{ path('admin.articles.create') }}" class="btn btn-primary">Création d'un article</a>
 		<div class="card-list mt-4">
 			{% for article in articles %}
 				{% include 'Components/_articleCard.html.twig' %}
 
+
 			{% endfor %}
+
+
 		</div>
 	</section>
 {% endblock %}
