@@ -28,7 +28,7 @@ class ArticleController extends AbstractController
     public function index(): Response
     {
         return $this->render('Backend/Articles/index.html.twig', [
-            'articles' => $this->articleRepo->findAll(),
+            'articles' => $this->articleRepo->findAllOrderByDate(true),
 
         ]);
     }

@@ -15,14 +15,10 @@
 		<a href="{{ path('app.articles.show', {slug: article.slug}) }}">
 			<h2 class="blog-card-header">{{ article.titre }}</h2>
 		</a>
-		<p>{{ article.description|slice(0,150) ~ '...' }}</p>
+		<p>{{ article.description|striptags|slice(0,150) ~ '...' }}</p>
 
 		{% for categorie in article.categories %}
-			<p>
-				<strong>Catégories:</strong>
-				{# <i class="bi bi-tags-fill"></i> #}
-				<span class="badge bg-secondary">#{{ categorie.titre }}</span>
-			</p>
+			<span class="badge bg-secondary">#{{ categorie.titre }}</span>
 		{% endfor %}
 
 		<p>

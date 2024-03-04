@@ -22,7 +22,7 @@
 		<h1 class="text-center">Administration des catégories</h1>
 		<a href="{{ path('admin.categories.create') }}" class="btn btn-primary">Création d'une catégorie</a>
 		<div class="card-list mt-4">
-			{% for categorie in categories.titre %}
+			{% for categorie in categories %}
 				{% include 'Components/_categorieCard.html.twig' %}
 
 			{% endfor %}
