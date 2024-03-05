@@ -6,7 +6,19 @@
 {% endblock %}
 
 {% block body %}
-	{% include "Frontend/Articles/_banner.html.twig" %}
+
+	{% if article.images|length > 1 %}
+
+		{% include "Frontend/Articles/Banner/_slider.html.twig" %}
+
+	{% elseif article.images|length > 0 %}
+		{% include "Frontend/Articles/Banner/_banner.html.twig" %}
+
+	{% else %}
+		{% include "Frontend/Articles/Banner_title.html.twig" %}
+
+	{% endif %}
+
 	<section class="container mt-4">
 		<div class="row">
 			{% include "Frontend/Articles/_sidebar.html.twig" %}
