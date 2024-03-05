@@ -1,11 +1,12 @@
 <div class="blog-card">
-	{% if article.imageName %}
+	{% for image in article.images|slice(0, 1) %}
 		<div class="blog-card-img">
 			<a href="{{ path('app.articles.show', {slug: article.slug}) }}">
-				<img src="{{ vich_uploader_asset(article) }}" alt="{{ article.titre }}" loading="lazy">
+				<img src="{{ vich_uploader_asset(image) }}" alt="{{ article.titre }}" loading="lazy">
 			</a>
 		</div>
-	{% endif %}
+	{% endfor %}
+
 	<div class="blog-card-content">
 		<p>
 			<i class="bi bi-calendar2-week-fill"></i>
