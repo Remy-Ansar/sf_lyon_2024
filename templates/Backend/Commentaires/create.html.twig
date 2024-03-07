@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Création d'un commentaire
+	{{ parent() }}
+{% endblock %}
+
+{# {% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('admin') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('admin') }}
+{% endblock %} #}
+
+{% block body %}
+	<section class="container mt-4">
+		<h1 class="text-center">Créer un commentaire</h1>
+		{% include 'Backend/Commentaires/_form.html.twig' with {buttonLabel: 'Créer'}%}
+		<a href="{{ path('admin.commentaires.index') }}" class="btn btn-secondary">Retour à la liste des articles</a>
+
+
+	</section>
+{% endblock %}

@@ -1,0 +1,19 @@
+<div class="card border-secondary">
+	<p class="blog-card-header bg-primary text-light mb-0">{{ commentaire.titre }}</p>
+	<div class="blog-card-body">
+
+		<p class="card-text">{{ commentaire.description|sanitize_html }}</p>
+		<p class="card-text">{{ commentaire.note}}</p>
+		<p class="card-text">
+			{% for i in range(0, 4) %}
+				<i class="bi bi-star{{ i < comment.note ? '-fill' }}"></i>
+			{% endfor %}
+		</p>
+		{% if app.request.get('_route') == 'admin.commentaires.index %}{% endif %}
+		
+
+		<p class="card-text">{{ commentaire.user.fullname}}</p>
+		<em class="card-text text-muted">{{comment.createdAt|ago }}</em>
+
+	</div>
+</div>

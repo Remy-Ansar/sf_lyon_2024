@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-	List des articles
+	Liste des articles
 	{{ parent() }}
 {% endblock %}
 
@@ -12,6 +12,8 @@
 			{% for article in articles %}
 				{% include 'Components/_articleCard.html.twig' %}
 			{% endfor %}
+
+
 		</div>
 
 	</section>
